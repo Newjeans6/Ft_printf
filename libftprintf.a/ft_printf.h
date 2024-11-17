@@ -13,17 +13,20 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <stdarg.h>
-int ft_printf(const char *format, ...);
-int parse_format(const char **format, va_list args);
-void parse_char(va_list args);
-void parse_string(va_list args);
-void parse_int(va_list args);
-void parse_unsigned(va_list args);
-void parse_hex(va_list args);
-void parse_hex_upper(va_list args);
-void parse_pointer(va_list args);
-void parse_percent(void);
-void ft_putchar(char c);
-void ft_putstr(char *str);
+# include <unistd.h>
+# include <stdarg.h>
+
+int     ft_printf(const char *format, ...);
+
+int     parse_char(char c);
+int     parse_string(char *str);
+int     parse_int(int n);
+int     parse_unsigned(unsigned int n);
+int     parse_hex(unsigned int n);
+int     parse_hex_upper(unsigned int n);
+int     parse_pointer(void *ptr);
+int     parse_percent(void);
+int     ft_strlen(char *str);
+int     parse_format(const char **format, va_list args);
+
 #endif

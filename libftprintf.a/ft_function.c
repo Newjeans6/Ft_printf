@@ -53,7 +53,7 @@ int	parse_int(int n)
 	if (n > 9)
 		len += parse_int(n / 10);
 	write(1, &n % 10 + '0', 1);
-	return (len);
+	return (len + 1);
 }
 int	parse_unsigned(unsigned int n)
 {
@@ -63,5 +63,5 @@ int	parse_unsigned(unsigned int n)
 	if (n > 9)
 		len += parse_unsigned(n / 10);
 	write(1, &n % 10 + '0', 1);
-	return (len);
+	return (len = 1);
 }
