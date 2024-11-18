@@ -6,40 +6,61 @@
 /*   By: pnaessen <pnaessen@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 16:31:14 by pnaessen          #+#    #+#             */
-/*   Updated: 2024/11/17 16:56:02 by pnaessen         ###   ########lyon.fr   */
+/*   Updated: 2024/11/18 16:11:05 by pnaessen         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int    parse_hex(unsigned int n)
+int	parse_hex(unsigned long int n)
 {
-    int	len;
+	int		len;
+	char	c;
 
-    len = 0;
-    if (n > 15)
-        len += parse_hex(n / 16);
-    if (n % 16 < 10)
-        write(1, &n % 16 + '0', 1);
-    else
-        write(1, &n % 16 - 10 + 'a', 1);
-    return (len + 1);
+	len = 0;
+	if (n > 15)
+		len += parse_hex(n / 16);
+	if (n % 16 < 10)
+	{
+		c = (n % 16) + '0';
+		write(1, &c, 1);
+	}
+	else
+	{
+		c = (n % 16) - 10 + 'a';
+		write(1, &c, 1);
+	}
+	return (len + 1);
 }
-int   parse_hex_upper(unsigned int n)
-{
-    int	len;
 
-    len = 0;
-    if (n > 15)
-        len += parse_hex_upper(n / 16);
-    if (n % 16 < 10)
-        write(1, &n % 16 + '0', 1);
-    else
-        write(1, &n % 16 - 10 + 'A', 1);
-    return (len + 1);
-}
-int parse_percent(void)
+int	parse_hex_upper(unsigned int n)
 {
-    write(1, "%", 1);
-    return (1);
+	int		len;
+	char	c;
+
+	len = 0;
+	if (n > 15)
+		len += parse_hex_upper(n / 16);
+	if (n % 16 < 10)
+	{
+		c = (n % 16) + '0';
+		write(1, &c, 1);
+	}
+	else
+	{
+		c = (n % 16) - 10 + 'A';
+		write(1, &c, 1);
+	}
+	return (len + 1);
+}
+
+int	parse_pointer(void *ptr)
+{
+	if (ptr == NULL)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	write(1, "0x", 2);
+	return (parse_hex((unsigned long int)ptr) + 2);
 }

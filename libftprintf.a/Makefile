@@ -1,26 +1,26 @@
 NAME  = libftprintf.a
-SRCS = ft_function.c t_function2.c ft_printf.c
+SRCS = ft_function.c ft_function2.c ft_printf.c
 
-OBJDIR = obj
-OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+OBJDIR = .obj
+OBJS = $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 
-CF = -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 ar = ar rcs
 
-$(OBJDIR)/%.o: %.c libft.h
-        @mkdir -p $(OBJDIR)
-        $(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/%.o: %.c ft_printf.h
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-    $(ar) $(NAME) $(OBJS)
+	$(ar) $(NAME) $(OBJS)
 
 clean:
-    rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR)
 fclean: clean
-    rm -f $(NAME)
+	rm -f $(NAME)
 re: fclean all
-    make all
 .PHONY: all clean fclean re
         

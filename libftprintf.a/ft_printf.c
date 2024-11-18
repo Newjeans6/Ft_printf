@@ -6,7 +6,7 @@
 /*   By: pnaessen <pnaessen@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 20:19:38 by aviscogl          #+#    #+#             */
-/*   Updated: 2024/11/17 16:47:05 by pnaessen         ###   ########lyon.fr   */
+/*   Updated: 2024/11/18 16:16:36 by pnaessen         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			ft_putchar(*format);
+			parse_char(*format);
 			count++;
 		}
 		format++;
@@ -38,30 +38,36 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (count);
 }
+
 int	parse_format(const char **format, va_list args)
 {
+	int	count;
+
+	count = 0;
 	if (**format == 'c')
-		parse_char(args);
+		count = parse_char(va_arg(args, int));
 	else if (**format == 's')
-		parse_string(args);
+		count = parse_string(va_arg(args, char *));
 	else if (**format == 'd' || **format == 'i')
-		parse_int(args);
+		count = parse_int(va_arg(args, int));
 	else if (**format == 'u')
-		parse_unsigned(args);
+		count = parse_unsigned(va_arg(args, unsigned int));
 	else if (**format == 'x')
-		parse_hex(args);
+		count = parse_hex(va_arg(args, unsigned int));
 	else if (**format == 'X')
-		parse_hex_upper(args);
+		count = parse_hex_upper(va_arg(args, unsigned int));
 	else if (**format == 'p')
-		parse_pointer(args);
+		count = parse_pointer(va_arg(args, void *));
 	else if (**format == '%')
-		parse_percent();
+		count = parse_char('%');
 	else
 		return (0);
-	return (1);
+	return (count);
 }
-int	main(void)
+/*int	main(void)
 {
-	ft_printf("Hello %d\n", 42);
+	char *str = "world";
+	printf("%d",ft_printf(" %p %p",0, 0));
+	printf("%d", printf(" %p %p",0, 0));
 	return (0);
-}
+}*/
